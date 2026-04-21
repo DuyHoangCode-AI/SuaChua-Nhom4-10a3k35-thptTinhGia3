@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sữa Chua Tự Làm – Nhóm 4</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --pink:     #f9a8c9;
+    --pink-deep:#e8729a;
+    --peach:    #fdd5b5;
+    --cream:    #fff8f2;
+    --orange:   #f9895a;
+    --mint:     #b8ead6;
+    --white:    #ffffff;
+    --text:     #3d2b1f;
+    --muted:    #9c7b6e;
+    --radius:   18px;
+    --shadow:   0 8px 32px rgba(233,114,154,.18);
+  }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+font-family: ‘Nunito’, sans-serif;
+background: #fdf6f0;
+color: var(–text);
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+/* ─── MAIN FRAME ─── */
+#app {
+width: 100%;
+max-width: 480px;
+min-height: 100svh;
+background: var(–cream);
+position: relative;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+box-shadow: 0 0 60px rgba(233,114,154,.25);
+}
+
+/* ─── HERO ─── */
+.hero {
+position: relative;
+width: 100%;
+height: 320px;
+overflow: hidden;
+flex-shrink: 0;
+}
+.hero-bg {
+width: 100%; height: 100%;
+object-fit: cover;
+object-position: center;
+display: block;
+}
+.hero-overlay {
+position: absolute; inset: 0;
+background: linear-gradient(
+160deg,
+rgba(249,168,201,.55) 0%,
+rgba(253,213,181,.4) 50%,
+rgba(255,255,255,.15) 100%
+);
+}
+.hero-content {
+position: absolute; inset: 0;
+display: flex; flex-direction: column;
+align-items: center; justify-content: flex-end;
+padding: 0 20px 28px;
+text-align: center;
+}
+.logo-wrap {
+width: 100px; height: 100px;
+border-radius: 50%;
+background: rgba(255,255,255,.85);
+backdrop-filter: blur(8px);
+padding: 8px;
+box-shadow: 0 4px 24px rgba(233,114,154,.35);
+margin-bottom: 12px;
+animation: popIn .6s cubic-bezier(.34,1.56,.64,1) both;
+}
+.logo-wrap img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+.hero-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.55rem; font-weight: 600;
+color: var(–white);
+text-shadow: 0 2px 12px rgba(200,80,110,.4);
+line-height: 1.2;
+animation: fadeUp .5s .15s both;
+}
+.hero-sub {
+font-size: .78rem; color: rgba(255,255,255,.9);
+margin-top: 5px;
+animation: fadeUp .5s .25s both;
+}
+
+/* ─── STICKY NAV ─── */
+.nav-bar {
+position: sticky; top: 0; z-index: 100;
+background: rgba(255,248,242,.92);
+backdrop-filter: blur(12px);
+border-bottom: 1px solid rgba(249,168,201,.3);
+display: flex; gap: 6px;
+padding: 10px 14px;
+overflow-x: auto;
+scrollbar-width: none;
+flex-shrink: 0;
+}
+.nav-bar::-webkit-scrollbar { display: none; }
+.nav-btn {
+flex-shrink: 0;
+background: var(–white);
+border: 1.5px solid var(–pink);
+border-radius: 40px;
+padding: 7px 14px;
+font-family: ‘Nunito’, sans-serif;
+font-size: .78rem; font-weight: 700;
+color: var(–pink-deep);
+cursor: pointer;
+transition: all .22s;
+white-space: nowrap;
+}
+.nav-btn:hover, .nav-btn.active {
+background: linear-gradient(135deg, var(–pink-deep), var(–orange));
+color: var(–white); border-color: transparent;
+box-shadow: 0 4px 14px rgba(233,114,154,.35);
+transform: translateY(-1px);
+}
+
+/* ─── SCROLLABLE CONTENT ─── */
+.content-area {
+flex: 1; overflow-y: auto;
+padding: 0 0 80px;
+scrollbar-width: thin;
+scrollbar-color: var(–pink) transparent;
+}
+
+/* ─── SECTIONS ─── */
+.section {
+display: none; padding: 22px 20px;
+animation: fadeIn .35s ease both;
+}
+.section.active { display: block; }
+
+/* ─── HOME ─── */
+.intro-badge {
+display: inline-flex; align-items: center; gap: 6px;
+background: linear-gradient(135deg, var(–pink), var(–peach));
+color: var(–white); font-size: .72rem; font-weight: 800;
+border-radius: 20px; padding: 4px 12px;
+letter-spacing: .04em; margin-bottom: 12px;
+}
+.intro-heading {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.5rem; line-height: 1.3;
+margin-bottom: 10px; color: var(–pink-deep);
+}
+.intro-text {
+font-size: .88rem; color: var(–muted); line-height: 1.7;
+margin-bottom: 18px;
+}
+.benefits {
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 10px; margin-bottom: 24px;
+}
+.benefit-card {
+background: var(–white);
+border-radius: 14px; padding: 14px;
+box-shadow: 0 3px 14px rgba(249,168,201,.2);
+display: flex; flex-direction: column; gap: 4px;
+border: 1px solid rgba(249,168,201,.25);
+}
+.benefit-icon { font-size: 1.4rem; }
+.benefit-label { font-size: .78rem; font-weight: 700; color: var(–pink-deep); }
+.benefit-desc { font-size: .7rem; color: var(–muted); }
+
+/* ─── SLIDER ─── */
+.slider-wrap {
+position: relative; overflow: hidden;
+border-radius: var(–radius);
+background: var(–white);
+box-shadow: var(–shadow);
+margin-bottom: 8px;
+aspect-ratio: 4/3;
+}
+.slides { display: flex; transition: transform .4s cubic-bezier(.4,0,.2,1); height: 100%; }
+.slide { min-width: 100%; height: 100%; overflow: hidden; }
+.slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.slider-btn {
+position: absolute; top: 50%; transform: translateY(-50%);
+background: rgba(255,255,255,.8); border: none;
+width: 36px; height: 36px; border-radius: 50%;
+font-size: 1.1rem; cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+box-shadow: 0 2px 10px rgba(0,0,0,.12);
+transition: background .2s;
+z-index: 10;
+}
+.slider-btn:hover { background: var(–white); }
+.slider-prev { left: 10px; }
+.slider-next { right: 10px; }
+.slider-dots { display: flex; justify-content: center; gap: 6px; padding: 10px 0 4px; }
+.dot {
+width: 8px; height: 8px; border-radius: 50%;
+background: var(–pink); opacity: .35;
+cursor: pointer; transition: all .2s;
+}
+.dot.active { opacity: 1; width: 22px; border-radius: 4px; }
+
+/* ─── ACTION BUTTONS ─── */
+.action-grid {
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 12px; margin-top: 20px;
+}
+.action-btn {
+background: var(–white);
+border: 2px solid var(–pink);
+border-radius: 16px; padding: 18px 12px;
+font-family: ‘Nunito’, sans-serif;
+font-size: .85rem; font-weight: 800;
+color: var(–pink-deep);
+cursor: pointer;
+display: flex; flex-direction: column;
+align-items: center; gap: 6px;
+transition: all .22s;
+box-shadow: 0 3px 12px rgba(249,168,201,.2);
+}
+.action-btn .ab-icon { font-size: 1.6rem; }
+.action-btn:hover {
+background: linear-gradient(135deg, var(–pink-deep), var(–orange));
+color: var(–white); border-color: transparent;
+transform: translateY(-3px);
+box-shadow: 0 8px 24px rgba(233,114,154,.4);
+}
+
+/* ─── SECTION HEADINGS ─── */
+.sec-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.3rem; color: var(–pink-deep);
+margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+}
+
+/* ─── MUA HÀNG ─── */
+.product-card {
+background: var(–white); border-radius: var(–radius);
+padding: 18px; box-shadow: var(–shadow);
+margin-bottom: 16px;
+}
+.product-row {
+display: flex; align-items: center; gap: 14px;
+}
+.product-img {
+width: 80px; height: 80px; border-radius: 12px;
+object-fit: cover; flex-shrink: 0;
+}
+.product-info { flex: 1; }
+.product-name { font-weight: 800; font-size: .95rem; color: var(–text); }
+.product-price { font-size: .82rem; color: var(–orange); font-weight: 700; margin-top: 2px; }
+.qty-row {
+display: flex; align-items: center; gap: 12px;
+margin-top: 12px;
+}
+.qty-label { font-size: .82rem; font-weight: 700; color: var(–muted); }
+.qty-ctrl {
+display: flex; align-items: center; gap: 0;
+background: var(–cream); border-radius: 40px;
+overflow: hidden;
+border: 1.5px solid rgba(249,168,201,.4);
+}
+.qty-btn {
+width: 34px; height: 34px; background: none; border: none;
+font-size: 1.1rem; cursor: pointer; color: var(–pink-deep);
+font-weight: 900; transition: background .2s;
+display: flex; align-items: center; justify-content: center;
+}
+.qty-btn:hover { background: var(–pink); color: var(–white); }
+.qty-val {
+min-width: 38px; text-align: center;
+font-weight: 800; font-size: .9rem; color: var(–text);
+}
+.total-row {
+background: linear-gradient(135deg,#fff0f6,#fff5ee);
+border-radius: 12px; padding: 12px 16px;
+display: flex; justify-content: space-between; align-items: center;
+border: 1.5px solid rgba(249,168,201,.3); margin-bottom: 16px;
+}
+.total-label { font-size: .85rem; font-weight: 700; color: var(–muted); }
+.total-val { font-size: 1.15rem; font-weight: 800; color: var(–orange); }
+
+/* ─── FORM ─── */
+.form-group { margin-bottom: 14px; }
+.form-label { font-size: .8rem; font-weight: 700; color: var(–muted); margin-bottom: 5px; display: block; }
+.form-input, .form-textarea {
+width: 100%; background: var(–white);
+border: 1.5px solid rgba(249,168,201,.4);
+border-radius: 12px; padding: 11px 14px;
+font-family: ‘Nunito’, sans-serif; font-size: .88rem; color: var(–text);
+outline: none; transition: border-color .2s;
+resize: vertical;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(–pink-deep); }
+.geo-btn {
+display: inline-flex; align-items: center; gap: 6px;
+font-size: .75rem; color: var(–pink-deep); font-weight: 700;
+background: none; border: 1.5px solid var(–pink);
+border-radius: 20px; padding: 5px 12px; cursor: pointer;
+margin-top: 6px; transition: all .2s;
+}
+.geo-btn:hover { background: var(–pink); color: var(–white); }
+
+/* ─── PRIMARY BUTTON ─── */
+.btn-primary {
+width: 100%; background: linear-gradient(135deg, var(–pink-deep), var(–orange));
+color: var(–white); border: none; border-radius: 40px;
+padding: 14px; font-family: ‘Nunito’, sans-serif;
+font-size: .95rem; font-weight: 800; cursor: pointer;
+box-shadow: 0 6px 20px rgba(233,114,154,.4);
+transition: all .22s; letter-spacing: .02em;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(233,114,154,.5); }
+.btn-primary:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.btn-secondary {
+width: 100%; background: var(–white);
+color: var(–pink-deep); border: 2px solid var(–pink);
+border-radius: 40px; padding: 13px;
+font-family: ‘Nunito’, sans-serif; font-size: .9rem; font-weight: 800;
+cursor: pointer; transition: all .22s; margin-top: 10px;
+}
+.btn-secondary:hover { background: var(–pink); color: var(–white); }
+
+/* ─── QR ─── */
+.qr-wrap {
+background: var(–white); border-radius: var(–radius);
+padding: 24px; text-align: center;
+box-shadow: var(–shadow); margin-bottom: 16px;
+}
+.qr-wrap img { width: 200px; height: auto; border-radius: 12px; }
+.qr-title { font-family: ‘Playfair Display’, serif; font-size: 1.1rem; color: var(–pink-deep); margin-bottom: 6px; }
+.qr-sub { font-size: .8rem; color: var(–muted); margin-bottom: 14px; }
+.qr-amount { font-size: 1.3rem; font-weight: 800; color: var(–orange); margin-bottom: 14px; }
+
+/* ─── SPINNER ─── */
+.spinner-wrap {
+display: flex; flex-direction: column;
+align-items: center; gap: 14px; padding: 32px 20px; text-align: center;
+}
+.spinner {
+width: 48px; height: 48px;
+border: 4px solid rgba(249,168,201,.3);
+border-top-color: var(–pink-deep);
+border-radius: 50%; animation: spin .8s linear infinite;
+}
+.spinner-text { font-size: .9rem; color: var(–muted); font-weight: 600; }
+
+/* ─── SUCCESS ─── */
+.success-wrap {
+text-align: center; padding: 32px 20px;
+}
+.success-icon { font-size: 4rem; animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both; }
+.success-title { font-family: ‘Playfair Display’, serif; font-size: 1.4rem; color: var(–pink-deep); margin: 12px 0 6px; }
+.success-sub { font-size: .85rem; color: var(–muted); }
+
+/* ─── ĐƠN HÀNG ─── */
+.order-empty {
+text-align: center; padding: 40px 20px;
+font-size: .88rem; color: var(–muted);
+}
+.order-card {
+background: var(–white); border-radius: var(–radius);
+padding: 16px; box-shadow: 0 3px 14px rgba(249,168,201,.15);
+margin-bottom: 12px; border-left: 4px solid var(–pink);
+}
+.order-card-head {
+display: flex; justify-content: space-between; align-items: flex-start;
+margin-bottom: 8px;
+}
+.order-id { font-size: .72rem; color: var(–muted); }
+.order-status {
+font-size: .72rem; font-weight: 800;
+background: linear-gradient(135deg,#b8ead6,#a2d9bf);
+color: #2d7a5a; border-radius: 20px; padding: 3px 10px;
+}
+.order-name { font-weight: 800; font-size: .9rem; margin-bottom: 3px; }
+.order-detail { font-size: .78rem; color: var(–muted); line-height: 1.6; }
+.order-total { font-weight: 800; color: var(–orange); font-size: .9rem; margin-top: 6px; }
+
+/* ─── HƯỚNG DẪN ─── */
+.step-card {
+background: var(–white); border-radius: var(–radius);
+padding: 18px; box-shadow: 0 3px 14px rgba(249,168,201,.15);
+margin-bottom: 12px; display: flex; gap: 14px; align-items: flex-start;
+border: 1px solid rgba(249,168,201,.2);
+transition: transform .2s;
+}
+.step-card:hover { transform: translateX(4px); }
+.step-num {
+width: 44px; height: 44px; flex-shrink: 0;
+background: linear-gradient(135deg, var(–pink), var(–peach));
+border-radius: 50%; display: flex; align-items: center; justify-content: center;
+font-size: 1.4rem;
+}
+.step-body { flex: 1; }
+.step-title { font-weight: 800; font-size: .92rem; color: var(–text); margin-bottom: 4px; }
+.step-desc { font-size: .8rem; color: var(–muted); line-height: 1.6; }
+.ingredients-box {
+background: linear-gradient(135deg,#fff0f6,#fff5ee);
+border-radius: 14px; padding: 16px;
+margin-bottom: 20px;
+border: 1.5px solid rgba(249,168,201,.3);
+}
+.ing-title { font-weight: 800; font-size: .88rem; color: var(–pink-deep); margin-bottom: 10px; }
+.ing-item {
+display: flex; align-items: center; gap: 8px;
+font-size: .82rem; color: var(–text); margin-bottom: 6px;
+}
+.ing-dot {
+width: 8px; height: 8px; border-radius: 50%;
+background: var(–pink); flex-shrink: 0;
+}
+
+/* ─── LIÊN HỆ ─── */
+.contact-card {
+background: var(–white); border-radius: var(–radius);
+padding: 22px; box-shadow: var(–shadow); margin-bottom: 14px;
+text-align: center;
+}
+.contact-icon { font-size: 2.4rem; margin-bottom: 8px; }
+.contact-label { font-size: .78rem; color: var(–muted); font-weight: 600; margin-bottom: 6px; }
+.contact-value { font-size: 1rem; font-weight: 800; color: var(–text); }
+.btn-zalo {
+background: linear-gradient(135deg,#0068ff,#0084ff);
+color: var(–white); border: none; border-radius: 40px;
+padding: 14px 32px; font-family: ‘Nunito’, sans-serif;
+font-size: .9rem; font-weight: 800; cursor: pointer;
+box-shadow: 0 6px 20px rgba(0,104,255,.3);
+transition: all .22s; width: 100%; margin-top: 6px;
+display: flex; align-items: center; justify-content: center; gap: 8px;
+text-decoration: none;
+}
+.btn-zalo:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,104,255,.4); }
+.btn-call {
+background: linear-gradient(135deg,#25d366,#128c7e);
+color: var(–white); border: none; border-radius: 40px;
+padding: 14px 32px; font-family: ‘Nunito’, sans-serif;
+font-size: .9rem; font-weight: 800; cursor: pointer;
+box-shadow: 0 6px 20px rgba(37,211,102,.3);
+transition: all .22s; width: 100%; margin-top: 10px;
+display: flex; align-items: center; justify-content: center; gap: 8px;
+text-decoration: none;
+}
+.btn-call:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(37,211,102,.4); }
+
+/* ─── FOOTER ─── */
+footer {
+text-align: center; padding: 20px;
+font-size: .72rem; color: var(–muted);
+border-top: 1px solid rgba(249,168,201,.2);
+flex-shrink: 0;
+}
+footer strong { color: var(–pink-deep); }
+
+/* ─── DIVIDER ─── */
+.divider { height: 1px; background: rgba(249,168,201,.25); margin: 18px 0; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes popIn { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: scale(1); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── SUBSECTION STATES ─── */
+.subsection { display: none; }
+.subsection.active { display: block; animation: fadeIn .3s ease both; }
+
+/* ─── TOAST ─── */
+.toast {
+position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+background: var(–text); color: var(–white);
+border-radius: 40px; padding: 10px 22px;
+font-size: .82rem; font-weight: 700;
+transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+z-index: 999; white-space: nowrap;
+pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 480px) {
+#app { max-width: 100%; box-shadow: none; }
+.hero { height: 280px; }
+}
+</style>
+
+</head>
+<body>
+
+<div id="app">
+
+  <!-- HERO -->
+
+  <div class="hero">
+    <img class="hero-bg" src="https://i.postimg.cc/XvWLgP68/1B912E7D-310E-41B3-AB28-41152B15108E.png" alt="hero" loading="eager"/>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="logo-wrap">
+        <img src="https://i.postimg.cc/Qx5Mr4vt/E53CC97E-A4ED-4235-859C-880FDB70053E.png" alt="logo"/>
+      </div>
+      <h1 class="hero-title">Sữa Chua Tự Làm – Nhóm 4</h1>
+      <p class="hero-sub">🍓 Tươi ngon · Lành mạnh · Handmade với tình yêu</p>
+    </div>
+  </div>
+
+  <!-- NAV -->
+
+  <nav class="nav-bar" id="navBar">
+    <button class="nav-btn active" data-section="home">🏠 Trang Chủ</button>
+    <button class="nav-btn" data-section="buy">🛒 Mua Hàng</button>
+    <button class="nav-btn" data-section="orders">📦 Đơn Hàng</button>
+    <button class="nav-btn" data-section="guide">📖 Hướng Dẫn</button>
+    <button class="nav-btn" data-section="contact">📞 Liên Hệ</button>
+  </nav>
+
+  <!-- SCROLLABLE CONTENT -->
+
+  <div class="content-area" id="contentArea">
+
+```
+<!-- ── HOME ── -->
+<section class="section active" id="sec-home">
+  <div class="intro-badge">✨ Sản phẩm thuần thiên nhiên</div>
+  <h2 class="intro-heading">Sữa Chua<br/><em>Handmade</em> thuần khiết</h2>
+  <p class="intro-text">Được làm từ những nguyên liệu tươi sạch, không chất bảo quản, không phẩm màu. Mỗi hũ sữa chua là một tình yêu được gửi gắm từ bàn tay của Nhóm 4 🤍</p>
+
+  <div class="benefits">
+    <div class="benefit-card">
+      <span class="benefit-icon">🥛</span>
+      <span class="benefit-label">100% Tự Làm</span>
+      <span class="benefit-desc">Không chất bảo quản, an toàn cho cả gia đình</span>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">🌿</span>
+      <span class="benefit-label">Nguyên Liệu Sạch</span>
+      <span class="benefit-desc">Sữa tươi, men lợi khuẩn chuẩn nhập khẩu</span>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">💪</span>
+      <span class="benefit-label">Tốt Cho Sức Khỏe</span>
+      <span class="benefit-desc">Probiotics hỗ trợ tiêu hóa, tăng đề kháng</span>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">🍓</span>
+      <span class="benefit-label">Nhiều Vị Phong Phú</span>
+      <span class="benefit-desc">Dâu, xoài, việt quất, truyền thống...</span>
+    </div>
+  </div>
+
+  <!-- SLIDER -->
+  <div class="slider-wrap" id="sliderWrap">
+    <div class="slides" id="slides">
+      <div class="slide"><img src="https://i.postimg.cc/fTXgjmSq/0515479C-EFA4-477F-856B-D9682CA4D5A0.png" alt="p1" loading="lazy"/></div>
+      <div class="slide"><img src="https://i.postimg.cc/PrZFzYvR/67FE97C5-E7F7-44B3-B1A4-9CABC9F8CB69.png" alt="p2" loading="lazy"/></div>
+      <div class="slide"><img src="https://i.postimg.cc/nVNPD0Mb/D63ADEB2-C483-40AD-A107-86718A4E7F9F.jpg" alt="p3" loading="lazy"/></div>
+      <div class="slide"><img src="https://i.postimg.cc/RVfbQKJP/IMG-7470.jpg" alt="p4" loading="lazy"/></div>
+      <div class="slide"><img src="https://i.postimg.cc/zD4cg0vd/IMG-7474.png" alt="p5" loading="lazy"/></div>
+    </div>
+    <button class="slider-btn slider-prev" id="sliderPrev">‹</button>
+    <button class="slider-btn slider-next" id="sliderNext">›</button>
+  </div>
+  <div class="slider-dots" id="sliderDots"></div>
+
+  <div class="action-grid">
+    <button class="action-btn" onclick="goSection('buy')">
+      <span class="ab-icon">🛒</span> Mua Hàng
+    </button>
+    <button class="action-btn" onclick="goSection('orders')">
+      <span class="ab-icon">📦</span> Đơn Hàng
+    </button>
+    <button class="action-btn" onclick="goSection('guide')">
+      <span class="ab-icon">📖</span> Hướng Dẫn
+    </button>
+    <button class="action-btn" onclick="goSection('contact')">
+      <span class="ab-icon">📞</span> Liên Hệ
+    </button>
+  </div>
+</section>
+
+<!-- ── MUA HÀNG ── -->
+<section class="section" id="sec-buy">
+
+  <!-- Sub: Product -->
+  <div class="subsection active" id="sub-product">
+    <h2 class="sec-title">🛒 Chọn Sản Phẩm</h2>
+
+    <div class="product-card">
+      <div class="product-row">
+        <img class="product-img" src="https://i.postimg.cc/fTXgjmSq/0515479C-EFA4-477F-856B-D9682CA4D5A0.png" alt="product"/>
+        <div class="product-info">
+          <div class="product-name">Sữa Chua Handmade Nhóm 4</div>
+          <div class="product-price">25.000 ₫ / hũ</div>
+        </div>
+      </div>
+      <div class="qty-row">
+        <span class="qty-label">Số lượng:</span>
+        <div class="qty-ctrl">
+          <button class="qty-btn" id="qtyMinus">−</button>
+          <span class="qty-val" id="qtyVal">1</span>
+          <button class="qty-btn" id="qtyPlus">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="total-row">
+      <span class="total-label">Tổng tiền:</span>
+      <span class="total-val" id="totalPrice">25.000 ₫</span>
+    </div>
+
+    <button class="btn-primary" id="btnCheckout">💳 Thanh Toán</button>
+  </div>
+
+  <!-- Sub: Form -->
+  <div class="subsection" id="sub-form">
+    <h2 class="sec-title">📋 Thông Tin Đặt Hàng</h2>
+
+    <div class="form-group">
+      <label class="form-label">👤 Tên của bạn *</label>
+      <input class="form-input" id="f-name" type="text" placeholder="Nhập tên..."/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">📱 Số điện thoại *</label>
+      <input class="form-input" id="f-phone" type="tel" placeholder="0xxx xxx xxx"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">📍 Địa điểm nhận hàng *</label>
+      <input class="form-input" id="f-address" type="text" placeholder="Nhập địa chỉ..."/>
+      <button class="geo-btn" id="btnGeo">📡 Lấy vị trí GPS</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">💬 Ghi chú (không bắt buộc)</label>
+      <textarea class="form-textarea" id="f-note" rows="3" placeholder="Yêu cầu thêm..."></textarea>
+    </div>
+
+    <button class="btn-primary" id="btnSubmitOrder">✅ Xác Nhận Đặt Hàng</button>
+    <button class="btn-secondary" onclick="showSub('sub-product')">← Quay lại</button>
+  </div>
+
+  <!-- Sub: QR -->
+  <div class="subsection" id="sub-qr">
+    <h2 class="sec-title">💳 Thanh Toán QR</h2>
+    <div class="qr-wrap">
+      <div class="qr-title">Quét mã để thanh toán</div>
+      <div class="qr-sub">MB Bank · Đỗ Lê Duy Hoàng</div>
+      <div class="qr-amount" id="qrAmount"></div>
+      <img id="qrImg" src="" alt="QR Code"/>
+    </div>
+    <p style="font-size:.78rem;color:var(--muted);text-align:center;margin-bottom:16px;">
+      📌 Nội dung chuyển khoản: <strong>SCTLN4</strong>
+    </p>
+    <button class="btn-primary" id="btnDone">✅ Hoàn Thành</button>
+    <button class="btn-secondary" onclick="showSub('sub-form')">← Quay lại</button>
+  </div>
+
+  <!-- Sub: Processing -->
+  <div class="subsection" id="sub-processing">
+    <div class="spinner-wrap">
+      <div class="spinner"></div>
+      <div class="spinner-text">Đang xử lý thanh toán...<br/>Vui lòng chờ trong giây lát 🍓</div>
+    </div>
+  </div>
+
+  <!-- Sub: Success -->
+  <div class="subsection" id="sub-success">
+    <div class="success-wrap">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">Thanh toán thành công!</div>
+      <div class="success-sub" id="successMsg">Cảm ơn bạn đã đặt hàng từ Nhóm 4 💕<br/>Chúng mình sẽ liên hệ sớm nhất!</div>
+      <br/><br/>
+      <button class="btn-primary" onclick="resetBuy()">🛒 Đặt thêm</button>
+      <button class="btn-secondary" onclick="goSection('orders')">📦 Xem Đơn Hàng</button>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── ĐƠN HÀNG ── -->
+<section class="section" id="sec-orders">
+  <h2 class="sec-title">📦 Đơn Hàng Của Bạn</h2>
+  <div id="ordersList"></div>
+</section>
+
+<!-- ── HƯỚNG DẪN ── -->
+<section class="section" id="sec-guide">
+  <h2 class="sec-title">📖 Hướng Dẫn Làm Sữa Chua</h2>
+
+  <div class="ingredients-box">
+    <div class="ing-title">🧾 Nguyên liệu cần chuẩn bị</div>
+    <div class="ing-item"><span class="ing-dot"></span>1 lít sữa tươi không đường</div>
+    <div class="ing-item"><span class="ing-dot"></span>1 hộp sữa đặc có đường (380g)</div>
+    <div class="ing-item"><span class="ing-dot"></span>2-3 hũ sữa chua nền (làm giống)</div>
+    <div class="ing-item"><span class="ing-dot"></span>Hũ đựng nhỏ, muỗng, nồi</div>
+    <div class="ing-item"><span class="ing-dot"></span>Topping: dâu, xoài, việt quất...</div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-num">🥛</div>
+    <div class="step-body">
+      <div class="step-title">Bước 1 – Chuẩn bị hỗn hợp sữa</div>
+      <div class="step-desc">Trộn đều sữa tươi và sữa đặc theo tỉ lệ 1:0.4. Khuấy tan hoàn toàn đến khi hỗn hợp đồng nhất.</div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-num">🔥</div>
+    <div class="step-body">
+      <div class="step-title">Bước 2 – Đun nóng sữa</div>
+      <div class="step-desc">Đun hỗn hợp ở lửa vừa đến khoảng 80-85°C (không để sôi). Khuấy liên tục để tránh bị cháy đáy nồi.</div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-num">🌡️</div>
+    <div class="step-body">
+      <div class="step-title">Bước 3 – Làm nguội & thêm men</div>
+      <div class="step-desc">Để nguội xuống còn 40-45°C rồi mới cho sữa chua giống vào. Khuấy nhẹ nhàng và đều tay để phân bố men đều.</div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-num">🏺</div>
+    <div class="step-body">
+      <div class="step-title">Bước 4 – Rót vào hũ</div>
+      <div class="step-desc">Rót hỗn hợp vào các hũ nhỏ sạch. Đậy kín nắp, không để lọt không khí để đảm bảo chất lượng.</div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-num">🧊</div>
+    <div class="step-body">
+      <div class="step-title">Bước 5 – Ủ & để lạnh</div>
+      <div class="step-desc">Ủ trong môi trường ấm (40°C) khoảng 6-8 giờ. Sau đó chuyển vào tủ lạnh tối thiểu 3-4 giờ trước khi thưởng thức.</div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-num">🍓</div>
+    <div class="step-body">
+      <div class="step-title">Bước 6 – Thêm topping & thưởng thức</div>
+      <div class="step-desc">Trang trí với dâu tươi, xoài, việt quất, granola hoặc mật ong. Sữa chua đẹp và ngon nhất khi ăn lạnh! 😋</div>
+    </div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#fff0f6,#ffe8f5);border-radius:14px;padding:16px;margin-top:8px;border:1.5px dashed rgba(249,168,201,.5);">
+    <p style="font-size:.82rem;color:var(--pink-deep);font-weight:700;margin-bottom:6px;">💡 Mẹo hay từ Nhóm 4:</p>
+    <p style="font-size:.78rem;color:var(--muted);line-height:1.7;">Dùng thùng xốp + chai nước nóng để ủ sữa chua nếu không có máy ủ. Nhiệt độ ổn định là yếu tố quan trọng nhất để men hoạt động tốt!</p>
+  </div>
+</section>
+
+<!-- ── LIÊN HỆ ── -->
+<section class="section" id="sec-contact">
+  <h2 class="sec-title">📞 Liên Hệ & Hỗ Trợ</h2>
+
+  <div class="contact-card">
+    <div class="contact-icon">📱</div>
+    <div class="contact-label">Hotline hỗ trợ</div>
+    <div class="contact-value">0964 493 987</div>
+    <a class="btn-call" href="tel:0964493987">
+      📞 Gọi Ngay
+    </a>
+  </div>
+
+  <div class="contact-card">
+    <div class="contact-icon">💬</div>
+    <div class="contact-label">Chat Zalo</div>
+    <div class="contact-value">Nhóm 4 – Sữa Chua</div>
+    <a class="btn-zalo" href="https://zalo.me/84385933633" target="_blank" rel="noopener">
+      💬 Nhắn Tin Zalo
+    </a>
+  </div>
+
+  <div class="contact-card" style="text-align:left;">
+    <div style="font-weight:800;font-size:.9rem;margin-bottom:10px;color:var(--pink-deep);">🕐 Giờ phục vụ</div>
+    <div style="font-size:.82rem;color:var(--muted);line-height:1.9;">
+      📅 Thứ 2 – Thứ 6: 7:00 – 21:00<br/>
+      📅 Thứ 7 – Chủ nhật: 8:00 – 20:00<br/>
+      📦 Giao hàng: nội thành trong ngày<br/>
+      💳 Thanh toán: tiền mặt & chuyển khoản
+    </div>
+  </div>
+</section>
+```
+
+  </div><!-- end content-area -->
+
+  <!-- FOOTER -->
+
+  <footer>
+    <strong>© Sữa Chua Tự Làm – Nhóm 4</strong><br/>
+    Developed by <strong>Duy Hoang</strong> 💕
+  </footer>
+
+</div><!-- end app -->
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONSTANTS ──
+const PRICE_PER = 25000;
+const TG_TOKEN  = '8628617771:AAGVVREjwJxXQ0iMp6xFyWtrhoL-z7BVUVE';
+const TG_CHAT   = '6286372153';
+
+// ── STATE ──
+let qty = 1;
+let orderData = {};
+
+// ── NAVIGATION ──
+function goSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  document.querySelector(`[data-section="${id}"]`).classList.add('active');
+  document.getElementById('contentArea').scrollTop = 0;
+  if (id === 'orders') renderOrders();
+}
+
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => goSection(btn.dataset.section));
+});
+
+function showSub(id) {
+  document.querySelectorAll('#sec-buy .subsection').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('contentArea').scrollTop = 0;
+}
+
+// ── SLIDER ──
+const slides = document.getElementById('slides');
+const dotsWrap = document.getElementById('sliderDots');
+const N = 5;
+let cur = 0, autoTimer;
+
+function buildDots() {
+  for (let i = 0; i < N; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => { goSlide(i); resetAuto(); };
+    dotsWrap.appendChild(d);
+  }
+}
+function goSlide(i) {
+  cur = (i + N) % N;
+  slides.style.transform = `translateX(-${cur * 100}%)`;
+  document.querySelectorAll('.dot').forEach((d, j) =>
+    d.classList.toggle('active', j === cur));
+}
+function resetAuto() {
+  clearInterval(autoTimer);
+  autoTimer = setInterval(() => goSlide(cur + 1), 3500);
+}
+document.getElementById('sliderPrev').onclick = () => { goSlide(cur - 1); resetAuto(); };
+document.getElementById('sliderNext').onclick = () => { goSlide(cur + 1); resetAuto(); };
+buildDots();
+resetAuto();
+
+// ── QTY & PRICE ──
+function updateTotal() {
+  const total = qty * PRICE_PER;
+  document.getElementById('totalPrice').textContent = total.toLocaleString('vi-VN') + ' ₫';
+}
+document.getElementById('qtyMinus').onclick = () => {
+  if (qty > 1) { qty--; document.getElementById('qtyVal').textContent = qty; updateTotal(); }
+};
+document.getElementById('qtyPlus').onclick = () => {
+  qty++; document.getElementById('qtyVal').textContent = qty; updateTotal();
+};
+
+// ── CHECKOUT ──
+document.getElementById('btnCheckout').onclick = () => showSub('sub-form');
+
+// ── GEO ──
+document.getElementById('btnGeo').onclick = () => {
+  const btn = document.getElementById('btnGeo');
+  btn.textContent = '⏳ Đang lấy vị trí...';
+  if (!navigator.geolocation) { showToast('Trình duyệt không hỗ trợ GPS'); return; }
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const { latitude: lat, longitude: lng } = pos.coords;
+      document.getElementById('f-address').value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+      btn.textContent = '✅ Đã lấy vị trí GPS';
+    },
+    () => {
+      btn.textContent = '❌ Không lấy được vị trí';
+      showToast('Không thể lấy GPS, vui lòng nhập thủ công');
+    }
+  );
+};
+
+// ── SUBMIT ORDER ──
+document.getElementById('btnSubmitOrder').onclick = () => {
+  const name    = document.getElementById('f-name').value.trim();
+  const phone   = document.getElementById('f-phone').value.trim();
+  const address = document.getElementById('f-address').value.trim();
+  const note    = document.getElementById('f-note').value.trim();
+
+  if (!name || !phone || !address) {
+    showToast('⚠️ Vui lòng điền đầy đủ thông tin!');
+    return;
+  }
+
+  const total = qty * PRICE_PER;
+  orderData = { name, phone, address, note, qty, total };
+
+  // Show QR
+  document.getElementById('qrAmount').textContent = total.toLocaleString('vi-VN') + ' ₫';
+  document.getElementById('qrImg').src =
+    `https://img.vietqr.io/image/MB-015223-compact2.png?amount=${total}&addInfo=SCTLN4&accountName=DO%20LE%20DUY%20HOANG`;
+  showSub('sub-qr');
+};
+
+// ── DONE / FAKE VERIFY ──
+document.getElementById('btnDone').onclick = () => {
+  showSub('sub-processing');
+  setTimeout(() => {
+    saveOrder(orderData);
+    sendTelegram(orderData);
+    showSub('sub-success');
+    document.getElementById('successMsg').innerHTML =
+      `Cảm ơn <strong>${orderData.name}</strong> đã đặt hàng! 💕<br/>Tổng: <strong>${orderData.total.toLocaleString('vi-VN')} ₫</strong><br/>Chúng mình sẽ liên hệ sớm nhất!`;
+  }, 5000);
+};
+
+// ── TELEGRAM ──
+async function sendTelegram(o) {
+  const msg =
+`🛒 *ĐƠN HÀNG MỚI – Nhóm 4*
+──────────────────
+👤 Tên: ${o.name}
+📱 SĐT: ${o.phone}
+📍 Địa chỉ: ${o.address}
+🛒 Số lượng: ${o.qty} hũ
+💰 Tổng tiền: ${o.total.toLocaleString('vi-VN')} ₫
+💬 Ghi chú: ${o.note || 'Không có'}
+──────────────────`;
+
+  try {
+    await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TG_CHAT, text: msg, parse_mode: 'Markdown' })
+    });
+  } catch(e) { console.warn('TG error:', e); }
+}
+
+// ── LOCALSTORAGE ORDERS ──
+function saveOrder(o) {
+  const orders = JSON.parse(localStorage.getItem('scorders') || '[]');
+  orders.unshift({
+    id: 'SCN4-' + Date.now(),
+    date: new Date().toLocaleString('vi-VN'),
+    ...o,
+    status: 'Đã thanh toán'
+  });
+  localStorage.setItem('scorders', JSON.stringify(orders));
+}
+
+function renderOrders() {
+  const orders = JSON.parse(localStorage.getItem('scorders') || '[]');
+  const el = document.getElementById('ordersList');
+  if (!orders.length) {
+    el.innerHTML = '<div class="order-empty">🛍️ Chưa có đơn hàng nào.<br/>Hãy đặt hàng đầu tiên nhé!</div>';
+    return;
+  }
+  el.innerHTML = orders.map(o => `
+    <div class="order-card">
+      <div class="order-card-head">
+        <span class="order-id">#${o.id}</span>
+        <span class="order-status">✅ ${o.status}</span>
+      </div>
+      <div class="order-name">👤 ${o.name}</div>
+      <div class="order-detail">
+        📱 ${o.phone}<br/>
+        📍 ${o.address}<br/>
+        📅 ${o.date}
+        ${o.note ? '<br/>💬 ' + o.note : ''}
+      </div>
+      <div class="order-total">🛒 ${o.qty} hũ · 💰 ${o.total.toLocaleString('vi-VN')} ₫</div>
+    </div>
+  `).join('');
+}
+
+// ── RESET BUY ──
+function resetBuy() {
+  qty = 1;
+  document.getElementById('qtyVal').textContent = '1';
+  updateTotal();
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-phone').value = '';
+  document.getElementById('f-address').value = '';
+  document.getElementById('f-note').value = '';
+  document.getElementById('btnGeo').textContent = '📡 Lấy vị trí GPS';
+  showSub('sub-product');
+  goSection('buy');
+}
+
+// ── TOAST ──
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>
+
+</body>
+</html>
